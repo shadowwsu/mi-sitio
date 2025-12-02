@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bracket - Réplica Exacta (Fix)</title>
+<style>
+  @font-face{font-family:Minecraft;src:url('https://fonts.cdnfonts.com/s/17890/Minecraft.woff') format('woff');}
+  :root{--bg:#0b0b0b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);font-family:Minecraft,monospace;color:#fff}
+  .stage-wrap{width:100%;height:100vh;display:flex;align-items:center;justify-content:center}
+  .stage{position:relative;width:1365px;height:768px;background-image:url('/mnt/data/1000152678.png');background-size:cover;background-position:center;border-radius:2px}
+  .slot{position:absolute;display:flex;align-items:center;gap:8px}
+  .slot img.head{width:28px;height:28px;image-rendering:pixelated;border:2px solid rgba(255,255,255,0.95);background:#111}
+  .slot .nameBox{background:transparent;border:2px solid rgba(255,255,255,0.95);padding:4px 8px;min-width:110px;font-size:13px}
+  .slot.gray{opacity:.35;filter:grayscale(1)}
+  .line{position:absolute;background:rgba(255,255,255,0.95)}
+  .admin{position:fixed;right:18px;top:18px;z-index:60}
+  .adminBtn{background:#d83e3e;border:none;padding:10px 14px;color:white;border-radius:6px;cursor:pointer}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:70}
+  .panel{background:#141414;padding:18px;border:3px solid rgba(255,255,255,0.95);border-radius:8px;min-width:320px}
+  .btn{padding:8px 10px;border-radius:6px;border:none;cursor:pointer}
+  .btnPrimary{background:#2ea44f;color:white}
+  .btnDanger{background:#d83e3e;color:white}
+  .headPreview{display:flex;gap:12px;align-items:center}
+  .headPreview img{width:96px;height:96px;image-rendering:pixelated;border:3px solid rgba(255,255,255,0.95)}
+  .slot .idTag{font-size:10px;opacity:0.2;margin-left:6px}
+
+  .slot[data-id^="R"] { flex-direction: row-reverse; }
+</style>
+</head>
+<body>
+<div class="admin"><button class="adminBtn" onclick="openPass()">Administrador</button></div>
+<div class="stage-wrap"><div class="stage" id="stage">
+
+  <!-- LEFT ROUND 1 (16 slots) exact positions tuned) -->
+  <div class="slot" data-id="L1" style="left:-150px;top:50px"><img class="head" src="https://mc-heads.net/avatar/SoyNoni/28" alt="head" onclick="onHead('L1')"><div class="nameBox">SoyNoni<span class="idTag"> L1</span></div></div>
+  <div class="slot" data-id="L2" style="left:-150px;top:80px"><img class="head" src="https://mc-heads.net/avatar/aXoZer/28" alt="head" onclick="onHead('L2')"><div class="nameBox">aXoZer<span class="idTag"> L2</span></div></div>
+  <div class="slot" data-id="L3" style="left:-150px;top:136px"><img class="head" src="https://mc-heads.net/avatar/JackMaster/28" alt="head" onclick="onHead('L3')"><div class="nameBox">JackMaster<span class="idTag"> L3</span></div></div>
+  <div class="slot" data-id="L4" style="left:-150px;top:166px"><img class="head" src="https://mc-heads.net/avatar/josepo90/28" alt="head" onclick="onHead('L4')"><div class="nameBox">josepo90<span class="idTag"> L4</span></div></div>
+  <div class="slot" data-id="L5" style="left:-150px;top:236px"><img class="head" src="https://mc-heads.net/avatar/MarkiLokuras/28" alt="head" onclick="onHead('L5')"><div class="nameBox">MarkiLokuras<span class="idTag"> L5</span></div></div>
+  <div class="slot" data-id="L6" style="left:-150px;top:266px"><img class="head" src="https://mc-heads.net/avatar/coldified/28" alt="head" onclick="onHead('L6')"><div class="nameBox">coldified<span class="idTag"> L6</span></div></div>
+  <div class="slot" data-id="L7" style="left:-150px;top:322px"><img class="head" src="https://mc-heads.net/avatar/Raptor65/28" alt="head" onclick="onHead('L7')"><div class="nameBox">Raptor65<span class="idTag"> L7</span></div></div>
+  <div class="slot" data-id="L8" style="left:-150px;top:352px"><img class="head" src="https://mc-heads.net/avatar/Karchez/28" alt="head" onclick="onHead('L8')"><div class="nameBox">Karchez<span class="idTag"> L8</span></div></div>
+  <div class="slot" data-id="L9" style="left:-150px;top:422px"><img class="head" src="https://mc-heads.net/avatar/SpreenDMC/28" alt="head" onclick="onHead('L9')"><div class="nameBox">SpreenDMC<span class="idTag"> L9</span></div></div>
+  <div class="slot" data-id="L10" style="left:-150px;top:452px"><img class="head" src="https://mc-heads.net/avatar/ObsessionTwitch/28" alt="head" onclick="onHead('L10')"><div class="nameBox">ObsessionTwitch<span class="idTag"> L10</span></div></div>
+  <div class="slot" data-id="L11" style="left:-150px;top:508px"><img class="head" src="https://mc-heads.net/avatar/Serpias/28" alt="head" onclick="onHead('L11')"><div class="nameBox">Serpias<span class="idTag"> L11</span></div></div>
+  <div class="slot" data-id="L12" style="left:-150px;top:538px"><img class="head" src="https://mc-heads.net/avatar/LuzuVlogs/28" alt="head" onclick="onHead('L12')"><div class="nameBox">LuzuVlogs<span class="idTag"> L12</span></div></div>
+  <div class="slot" data-id="L13" style="left:-150px;top:608px"><img class="head" src="https://mc-heads.net/avatar/Tivo_o/28" alt="head" onclick="onHead('L13')"><div class="nameBox">Tivo_o<span class="idTag"> L13</span></div></div>
+  <div class="slot" data-id="L14" style="left:-150px;top:638px"><img class="head" src="https://mc-heads.net/avatar/Farfadox/28" alt="head" onclick="onHead('L14')"><div class="nameBox">Farfadox<span class="idTag"> L14</span></div></div>
+  <div class="slot" data-id="L15" style="left:-150px;top:694px"><img class="head" src="https://mc-heads.net/avatar/Bobicraft/28" alt="head" onclick="onHead('L15')"><div class="nameBox">Bobicraft<span class="idTag"> L15</span></div></div>
+  <div class="slot" data-id="L16" style="left:-150px;top:724px"><img class="head" src="https://mc-heads.net/avatar/Silithur/28" alt="head" onclick="onHead('L16')"><div class="nameBox">Silithur<span class="idTag"> L16</span></div></div>
+
+  <!-- LEFT ROUND 2 (8 -> we display 4 merged slots to match image layout) -->
+  <div class="slot" data-id="L1_2" style="left:40px;top:95px"><img class="head" src="https://mc-heads.net/avatar/aXoZer/28" alt="head" onclick="onHead('L1_2')"><div class="nameBox">aXoZer<span class="idTag"> L1_2</span></div></div>
+  <div class="slot" data-id="L2_2" style="left:40px;top:125px"><img class="head" src="https://mc-heads.net/avatar/Karchez/28" alt="head" onclick="onHead('L2_2')"><div class="nameBox">Karchez<span class="idTag"> L2_2</span></div></div>
+  <div class="slot" data-id="L3_2" style="left:40px;top:653px"><img class="head" src="https://mc-heads.net/avatar/ObsessionTwitch/28" alt="head" onclick="onHead('L3_2')"><div class="nameBox">ObsessionTwitch<span class="idTag"> L3_2</span></div></div>
+  <div class="slot" data-id="L4_2" style="left:40px;top:683px"><img class="head" src="https://mc-heads.net/avatar/Tivo_o/28" alt="head" onclick="onHead('L4_2')"><div class="nameBox">Tivo_o<span class="idTag"> L4_2</span></div></div>  
+  <div class="slot" data-id="L5_2" style="left:40px;top:281px"><img class="head" src="https://mc-heads.net/avatar/creeper_1gamer" alt="head" onclick="onHead('L5_2')"><div class="nameBox">creeper_1gamer<span class="idTag"> L5_2</span></div></div> 
+  <div class="slot" data-id="L6_2" style="left:40px;top:311px"><img class="head" src="https://mc-heads.net/avatar/creeper_1gamer" alt="head" onclick="onHead('L6_2')"><div class="nameBox">creeper_1gamer<span class="idTag"> L6_2</span></div></div>   
+  <div class="slot" data-id="L7_2" style="left:40px;top:467px"><img class="head" src="https://mc-heads.net/avatar/creeper_1gamer" alt="head" onclick="onHead('L7_2')"><div class="nameBox">creeper_1gamer<span class="idTag"> L7_2</span></div></div>   
+  <div class="slot" data-id="L8_2" style="left:40px;top:497px"><img class="head" src="https://mc-heads.net/avatar/creeper_1gamer" alt="head" onclick="onHead('L8_2')"><div class="nameBox">creeper_1gamer<span class="idTag"> L8_2</span></div></div>     
+
+  <!-- LEFT QUARTERS -->
+  <div class="slot" data-id="Lq1" style="left:288px;top:189px"><img class="head" src="https://mc-heads.net/avatar/aXoZer/28" alt="head" onclick="onHead('Lq1')"><div class="nameBox">aXoZer<span class="idTag"> Lq1</span></div></div>
+  <div class="slot" data-id="Lq2" style="left:288px;top:219px"><img class="head" src="https://mc-heads.net/avatar/Tivo_o/28" alt="head" onclick="onHead('Lq2')"><div class="nameBox">Tivo_o<span class="idTag"> Lq2</span></div></div>
+  <div class="slot" data-id="Lq3" style="left:288px;top:561px"><img class="head" src="https://mc-heads.net/avatar/aXoZer/28" alt="head" onclick="onHead('Lq3')"><div class="nameBox">aXoZer<span class="idTag"> Lq3</span></div></div>
+  <div class="slot" data-id="Lq4" style="left:288px;top:591px"><img class="head" src="https://mc-heads.net/avatar/Tivo_o/28" alt="head" onclick="onHead('Lq4')"><div class="nameBox">Tivo_o<span class="idTag"> Lq4</span></div></div>  
+
+  <!-- LEFT SEMI & FINALIST -->
+  <div class="slot" data-id="Ls1" style="left:326px;top:350px"><img class="head" src="https://mc-heads.net/avatar/aXoZer/28" alt="head" onclick="onHead('Ls1')"><div class="nameBox">aXoZer<span class="idTag"> Ls1</span></div></div>
+  <div class="slot" data-id="Ls2" style="left:326px;top:380px"><img class="head" src="https://mc-heads.net/avatar/Tivo_o/28" alt="head" onclick="onHead('Ls2')"><div class="nameBox">Tivo_o<span class="idTag"> Ls2</span></div></div>
+
+  <!-- CENTER FINAL (display) -->
+  <div class="slot" data-id="CF" style="left:500px;top:365px"><img class="head" src="https://mc-heads.net/avatar/Final/28" alt="head" onclick="onHead('CF')"><div class="nameBox">Final<span class="idTag"> CF</span></div></div>
+
+  <!-- RIGHT SIDE: mirror of left (16 initial) -->
+  <div class="slot" data-id="R1" style="left:1355px;top:50px"><img class="head" src="https://mc-heads.net/avatar/Zormanos/28" alt="head" onclick="onHead('R1')"><div class="nameBox">Zormanos<span class="idTag"> R1</span></div></div>
+  <div class="slot" data-id="R2" style="left:1355px;top:80px"><img class="head" src="https://mc-heads.net/avatar/ALKAPON30P/28" alt="head" onclick="onHead('R2')"><div class="nameBox">ALKAPON30P<span class="idTag"> R2</span></div></div>
+  <div class="slot" data-id="R3" style="left:1355px;top:136px"><img class="head" src="https://mc-heads.net/avatar/elrubius/28" alt="head" onclick="onHead('R3')"><div class="nameBox">elrubius<span class="idTag"> R3</span></div></div>
+  <div class="slot" data-id="R4" style="left:1355px;top:166px"><img class="head" src="https://mc-heads.net/avatar/CrystalMolly/28" alt="head" onclick="onHead('R4')"><div class="nameBox">CrystalMolly<span class="idTag"> R4</span></div></div>
+  <div class="slot" data-id="R5" style="left:1355px;top:236px"><img class="head" src="https://mc-heads.net/avatar/iRoier/28" alt="head" onclick="onHead('R5')"><div class="nameBox">iRoier<span class="idTag"> R5</span></div></div>
+  <div class="slot" data-id="R6" style="left:1355px;top:266px"><img class="head" src="https://mc-heads.net/avatar/aldo_geo/28" alt="head" onclick="onHead('R6')"><div class="nameBox">aldo_geo<span class="idTag"> R6</span></div></div>
+  <div class="slot" data-id="R7" style="left:1355px;top:322px"><img class="head" src="https://mc-heads.net/avatar/Quackity/28" alt="head" onclick="onHead('R7')"><div class="nameBox">Quackity<span class="idTag"> R7</span></div></div>
+  <div class="slot" data-id="R8" style="left:1355px;top:352px"><img class="head" src="https://mc-heads.net/avatar/alexby11/28" alt="head" onclick="onHead('R8')"><div class="nameBox">alexby11<span class="idTag"> R8</span></div></div>
+  <div class="slot" data-id="R9" style="left:1355px;top:422px"><img class="head" src="https://mc-heads.net/avatar/Conterstine/28" alt="head" onclick="onHead('R9')"><div class="nameBox">Conterstine<span class="idTag"> R9</span></div></div>
+  <div class="slot" data-id="R10" style="left:1355px;top:452px"><img class="head" src="https://mc-heads.net/avatar/MichTaquito/28" alt="head" onclick="onHead('R10')"><div class="nameBox">MichTaquito<span class="idTag"> R10</span></div></div>
+  <div class="slot" data-id="R11" style="left:1355px;top:508px"><img class="head" src="https://mc-heads.net/avatar/FenRize/28" alt="head" onclick="onHead('R11')"><div class="nameBox">FenRize<span class="idTag"> R11</span></div></div>
+  <div class="slot" data-id="R12" style="left:1355px;top:538px"><img class="head" src="https://mc-heads.net/avatar/dedrevil/28" alt="head" onclick="onHead('R12')"><div class="nameBox">dedrevil<span class="idTag"> R12</span></div></div>
+  <div class="slot" data-id="R13" style="left:1355px;top:608px"><img class="head" src="https://mc-heads.net/avatar/vickypalami/28" alt="head" onclick="onHead('R13')"><div class="nameBox">vickypalami<span class="idTag"> R13</span></div></div>
+  <div class="slot" data-id="R14" style="left:1355px;top:638px"><img class="head" src="https://mc-heads.net/avatar/GirOfNox/28" alt="head" onclick="onHead('R14')"><div class="nameBox">GirlOfNox<span class="idTag"> R14</span></div></div>
+  <div class="slot" data-id="R15" style="left:1355px;top:694px"><img class="head" src="https://mc-heads.net/avatar/ELRichMC/28" alt="head" onclick="onHead('R15')"><div class="nameBox">ELRichMC<span class="idTag"> R15</span></div></div>
+  <div class="slot" data-id="R16" style="left:1355px;top:724px"><img class="head" src="https://mc-heads.net/avatar/MYMTUMTUM/28" alt="head" onclick="onHead('R16')"><div class="nameBox">MYMTUMTUM<span class="idTag"> R16</span></div></div>
+
+  <!-- RIGHT ROUND 2 (mirrors) -->
+  <div class="slot" data-id="R1_2" style="left:1163px;top:95px"><img class="head" src="https://mc-heads.net/avatar/Zormanos/28" alt="head" onclick="onHead('R1_2')"><div class="nameBox">Zormanos<span class="idTag"> R1_2</span></div></div>
+  <div class="slot" data-id="R2_2" style="left:1163px;top:125px"><img class="head" src="https://mc-heads.net/avatar/aldo_geo/28" alt="head" onclick="onHead('R2_2')"><div class="nameBox">aldo_geo<span class="idTag"> R2_2</span></div></div>
+  <div class="slot" data-id="R3_2" style="left:1163px;top:653px"><img class="head" src="https://mc-heads.net/avatar/Conterstine/28" alt="head" onclick="onHead('R3_2')"><div class="nameBox">Conterstine<span class="idTag"> R3_2</span></div></div>
+  <div class="slot" data-id="R4_2" style="left:1163px;top:683px"><img class="head" src="https://mc-heads.net/avatar/ELRichMC/28" alt="head" onclick="onHead('R4_2')"><div class="nameBox">ELRichMC<span class="idTag"> R4_2</span></div></div>
+  <div class="slot" data-id="R5_2" style="left:1163px;top:281px"><img class="head" src="https://mc-heads.net/avatar/Conterstine/28" alt="head" onclick="onHead('R5_2')"><div class="nameBox">Conterstine<span class="idTag"> R5_2</span></div></div>
+  <div class="slot" data-id="R6_2" style="left:1163px;top:311px"><img class="head" src="https://mc-heads.net/avatar/ELRichMC/28" alt="head" onclick="onHead('R6_2')"><div class="nameBox">ELRichMC<span class="idTag"> R6_2</span></div></div>
+  <div class="slot" data-id="R7_2" style="left:1163px;top:497px"><img class="head" src="https://mc-heads.net/avatar/ELRichMC/28" alt="head" onclick="onHead('R7_2')"><div class="nameBox">ELRichMC<span class="idTag"> R7_2</span></div></div>    
+  <div class="slot" data-id="R8_2" style="left:1163px;top:467px"><img class="head" src="https://mc-heads.net/avatar/Conterstine/28" alt="head" onclick="onHead('R8_2')"><div class="nameBox">Conterstine<span class="idTag"> R8_2</span></div></div>
+
+  <!-- RIGHT QUARTERS -->
+  <div class="slot" data-id="Rq1" style="left:915px;top:189px"><img class="head" src="https://mc-heads.net/avatar/Zormanos/28" alt="head" onclick="onHead('Rq1')"><div class="nameBox">Zormanos<span class="idTag"> Rq1</span></div></div>
+  <div class="slot" data-id="Rq2" style="left:915px;top:219px"><img class="head" src="https://mc-heads.net/avatar/vickypalami/28" alt="head" onclick="onHead('Rq2')"><div class="nameBox">vickypalami<span class="idTag"> Rq2</span></div></div>
+  <div class="slot" data-id="Rq3" style="left:915px;top:561px"><img class="head" src="https://mc-heads.net/avatar/vickypalami/28" alt="head" onclick="onHead('Rq3')"><div class="nameBox">vickypalami<span class="idTag"> Rq3</span></div></div>
+  <div class="slot" data-id="Rq4" style="left:915px;top:591px"><img class="head" src="https://mc-heads.net/avatar/vickypalami/28" alt="head" onclick="onHead('Rq4')"><div class="nameBox">vickypalami<span class="idTag"> Rq4</span></div></div>  
+
+  <!-- RIGHT SEMI & RF -->
+  <div class="slot" data-id="Rs1" style="left:885px;top:350px"><img class="head" src="https://mc-heads.net/avatar/ELRichMC/28" alt="head" onclick="onHead('Rs1')"><div class="nameBox">ELRichMC<span class="idTag"> Rs1</span></div></div>
+  <div class="slot" data-id="Rs2" style="left:885px;top:380px"><img class="head" src="https://mc-heads.net/avatar/Zormanos/28" alt="head" onclick="onHead('Rs2')"><div class="nameBox">Zormanos<span class="idTag"> Rs2</span></div></div>
+
+  <!-- CENTER FINAL (display) -->
+  <div class="slot" data-id="CF2" style="left:685px;top:365px"><img class="head" src="https://mc-heads.net/avatar/Final/28" alt="head" onclick="onHead('CF2')"><div class="nameBox">Final<span class="idTag"> CF2</span></div></div>   
+
+</div></div>
+
+<!-- PASS MODAL -->
+<div class="overlay" id="passModal"><div class="panel"><h3>Acceso Administrador</h3><label>Contraseña</label><input id="passInput" type="password" placeholder="Contraseña"/><div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px"><button class="btn" onclick="closePass()">Cerrar</button><button class="btn btnPrimary" onclick="checkPass()">Entrar</button></div></div></div>
+
+<!-- EDIT/HEAD MODAL -->
+<div class="overlay" id="headModal"><div class="panel"><h3 id="headTitle">Usuario</h3><div class="headPreview"><img id="headImg" src="" alt="head"><div><p id="headUserInfo">Opciones:</p><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btnPrimary" onclick="markWinner()">Ganador</button><button class="btn" onclick="markLoser()">Perdedor</button><button class="btn btnDanger" onclick="deleteSlot()">Eliminar</button></div></div></div><div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn" onclick="closeHeadModal()">Cerrar</button></div></div></div>
+
+<script>
+const ADMIN_PASS = 'G4t1um';
+let admin = false;
+let activeSlot = null;
+
+function openPass(){document.getElementById('passModal').style.display='flex'}
+function closePass(){document.getElementById('passModal').style.display='none'}
+function checkPass(){const v=document.getElementById('passInput').value; if(v===ADMIN_PASS){admin=true; alert('Modo administrador activado. Doble clic en un slot para editar.'); closePass();} else alert('Contraseña incorrecta');}
+
+// Double-click to edit name when admin
+const stage = document.getElementById('stage');
+stage.addEventListener('dblclick', e=>{
+  if(!admin) { openPass(); return }
+  const slot = e.target.closest('.slot');
+  if(!slot) return;
+  const id = slot.dataset.id;
+  const current = slot.querySelector('.nameBox').innerText.replace(/\s*L\d+$/,'');
+  const name = prompt('Nombre de usuario de Minecraft para ' + id, current);
+  if(name!==null){ slot.querySelector('.nameBox').childNodes[0].nodeValue = name; const head = slot.querySelector('img.head'); head.src = `https://mc-heads.net/avatar/${encodeURIComponent(name)}/28`; }
+});
+
+function onHead(id){
+  const slot = document.querySelector(`.slot[data-id='${id}']`);
+  const name = slot.querySelector('.nameBox').childNodes[0].nodeValue.trim();
+  if(!name || name===''){ if(admin){ alert('Slot vacío. Doble clic para editar.'); } else { alert('Slot vacío'); } return }
+  activeSlot = id;
+  document.getElementById('headTitle').innerText = name;
+  document.getElementById('headImg').src = `https://mc-heads.net/avatar/${encodeURIComponent(name)}/96`;
+  document.getElementById('headModal').style.display='flex';
+}
+function closeHeadModal(){document.getElementById('headModal').style.display='none'; activeSlot=null}
+
+function computeNext(id){
+  const leftMap = {
+    'L1':'L1_2','L2':'L1_2','L3':'L2_2','L4':'L2_2',
+    'L5':'L5_2','L6':'L5_2','L7':'L6_2','L8':'L6_2',
+    'L9':'L7_2','L10':'L7_2','L11':'L8_2','L12':'L8_2',
+    'L13':'L3_2','L14':'L3_2','L15':'L4_2','L16':'L4_2',
+    'L1_2':'Lq1','L2_2':'Lq1','L5_2':'Lq2','L6_2':'Lq2','L7_2':'Lq3','L8_2':'Lq3','L3_2':'Lq4','L4_2':'Lq4',
+    'Lq1':'Ls1','Lq2':'Ls1','Lq3':'Ls2','Lq4':'Ls2',
+    'Ls1':'CF','Ls2':'CF',	
+  };
+  const rightMap = {
+    'R1':'R1_2','R2':'R1_2','R3':'R2_2','R4':'R2_2',
+    'R5':'R5_2','R6':'R5_2','R8':'R6_2','R7':'R6_2',
+    'R9':'R8_2','R10':'R8_2','R11':'R7_2','R12':'R7_2',
+    'R13':'R3_2','R14':'R3_2','R15':'R4_2','R16':'R4_2',
+    'R1_2':'Rq1','R2_2':'Rq1','R5_2':'Rq2','R6_2':'Rq2',	
+    'Rq1':'Rs1','Rq2':'Rs1','Rq4':'Rs2','Rq3':'Rs2',
+    'R8_2':'Rq3','R7_2':'Rq3','R3_2':'Rq4','R4_2':'Rq4',
+    'Rq1':'Rs1','Rq2':'Rs1','Rq4':'Rs2','Rq3':'Rs2',
+    'Rs1':'CF2','Rs2':'CF2',	
+	
+  };
+  return leftMap[id] || rightMap[id] || null;
+}
+
+function markWinner(){ if(!activeSlot) return; const next = computeNext(activeSlot); if(!next){ alert('No hay siguiente slot'); closeHeadModal(); return } const src = document.querySelector(`.slot[data-id='${activeSlot}']`); const tgt = document.querySelector(`.slot[data-id='${next}']`); const name = src.querySelector('.nameBox').childNodes[0].nodeValue.trim(); tgt.querySelector('.nameBox').childNodes[0].nodeValue = name; tgt.querySelector('img.head').src = `https://mc-heads.net/avatar/${encodeURIComponent(name)}/28`; closeHeadModal(); }
+function markLoser(){ if(!activeSlot) return; const el = document.querySelector(`.slot[data-id='${activeSlot}']`); el.classList.add('gray'); closeHeadModal(); }
+function deleteSlot(){ if(!activeSlot) return; const el = document.querySelector(`.slot[data-id='${activeSlot}']`); el.querySelector('.nameBox').childNodes[0].nodeValue = ''; el.querySelector('img.head').src = ''; el.classList.remove('gray'); closeHeadModal(); }
+
+</script>
+</body>
+</html>
